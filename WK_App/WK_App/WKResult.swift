@@ -6,3 +6,15 @@
 //
 
 import Foundation
+
+struct WKResult{
+    let matchNumber: Int
+    let roundNumber: Int
+    let dateUTC: String
+    let location: String
+    let homeTeam: String
+    let awayTeam: String
+    let group: String?
+    let homeTeamScore: Int?
+    let awayTeamScore: Int?
+}
