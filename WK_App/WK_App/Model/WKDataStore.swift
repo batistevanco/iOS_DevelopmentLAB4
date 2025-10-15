@@ -25,6 +25,7 @@ func getAllLocations() -> [String] {
 }
 
 func getAllResultsbyLocation(location: String){
+    let results: [WKResult] = load("WKResultsQatar.json")
     
 }
 

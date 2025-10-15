@@ -9,7 +9,14 @@ import SwiftUI
 
 struct ScoreListView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack(path: $presentedParks) {
+            List(parks) { park in
+                NavigationLink(park.name, value: park)
+            }
+            .navigationDestination(for: Park.self) { park in
+                ParkDetails(park: park)
+            }
+        }
     }
 }
 
