@@ -8,18 +8,35 @@
 import SwiftUI
 
 struct ScoreListView: View {
+    @Environment(WKDataStore.self) var wkDataStore
+       @State private var selectedLocation: String? = "Lusail Stadium"
+
+       private var resultsAtLocation: [WKResult] {
+           guard let loc = selectedLocation?
+               .trimmingCharacters(in: .whitespacesAndNewlines),
+                 !loc.isEmpty
+           else {
+               return []
+           }
+
+           return wkDataStore.getAllResultsbyLocation(location: loc)
+       }
+    
     var body: some View {
-        NavigationStack(path: $presentedParks) {
-            List(parks) { park in
-                NavigationLink(park.name, value: park)
+        //results by location
+        Grid {
+            GridRow {
+                Text("Team")
+                Text("X")
+                Text("Team")
             }
-            .navigationDestination(for: Park.self) { park in
-                ParkDetails(park: park)
+            GridRow {
+                Text("Score")
+                Text("-")
+                Text("Score")
             }
         }
+
     }
 }
 
-#Preview {
-    ScoreListView()
-}

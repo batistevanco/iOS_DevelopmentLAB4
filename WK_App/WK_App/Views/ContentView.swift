@@ -8,9 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var selectedTeam: String?
     var body: some View {
-        NavigationStack {
-            WelcomeView()
+       /* NavigationSplitView{
+            WelcomeView(selectedTeam: $selectedTeam)
+        } detail: {
+            if let selectedTeam = selectedTeam{
+                ScoreListView(selectedTeam: selectedTeam)
+            } else{
+                Text("Please select a name")
+            }
+        }*/
+        NavigationStack{
+            WelcomeView(selectedTeam: $selectedTeam)
         }
     }
 }

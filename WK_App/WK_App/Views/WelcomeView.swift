@@ -7,26 +7,31 @@
 
 import SwiftUI
 
+
 struct WelcomeView: View {
+    @Environment(WKDataStore.self) var wkDataStore
+    @Binding var selectedTeam: String?
+
     var body: some View {
         
         Text("WK QATAR 2020").font(Font.largeTitle)
         
         Text("Select your favorite team...")
         
-        let teams = getAllTeams()
+        let teams = wkDataStore.getAllTeams()
 
-        List(teams, id: \.self) { team in
+        List(teams, id: \.self, selection: $selectedTeam) { team in
             Text(team)
         }
-          
         
-        Button("Next") {
-            ScoreListView()
+        if let selectedTeam = selectedTeam{
+            Button("Next"){
+                ResultsView()
+            }
+
         }
+
+        
     }
 }
 
-#Preview {
-    WelcomeView()
-}

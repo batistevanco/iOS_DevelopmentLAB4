@@ -7,26 +7,47 @@
 
 import Foundation
 
+@Observable
+class WKDataStore{
+    let manager = DataManager()
+    // Unieke teamnamen (home + away), geen lege waarden
+        func getAllTeams() -> [String] {
+            let results = manager.results
 
-func getAllTeams() -> [String] {
-    // 1. Laad alle resultaten
-    let results: [WKResult] = load("WKResultsQatar.json")
+            let teams = results
+                .flatMap { [$0.homeTeam, $0.awayTeam] }
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .filter { !$0.isEmpty }
 
-    // 2. Combineer alle teams (home + away)
-    let allTeams = results.flatMap { [$0.homeTeam, $0.awayTeam] }
+            var seen = Set<String>() // voor case-insensitieve uniekheid
+            let unique = teams.filter { seen.insert($0.lowercased()).inserted }
 
-    return allTeams
+            return unique.sorted()
+        }
+
+        // Unieke locaties, geen lege waarden
+        func getAllLocations() -> [String] {
+            let results = manager.results
+
+            let locs = results
+                .map { $0.location }
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .filter { !$0.isEmpty }
+
+            var seen = Set<String>()
+            let unique = locs.filter { seen.insert($0.lowercased()).inserted }
+
+            return unique.sorted()
+        }
+
+    func getAllResultsbyLocation(location: String){
+        let results = DataManager().results
+
+    }
 }
 
-func getAllLocations() -> [String] {
-    let results: [WKResult] = load("WKResultsQatar.json")
-    let locations = results.flatMap { [$0.location] }
-    return locations
-}
 
-func getAllResultsbyLocation(location: String){
-    let results: [WKResult] = load("WKResultsQatar.json")
-    
-}
+
+
 
 

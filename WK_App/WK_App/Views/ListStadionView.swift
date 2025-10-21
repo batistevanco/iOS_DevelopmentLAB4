@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ListStadionView: View {
+    
+    @Environment(WKDataStore.self) var wkDataStore
+    
+    let locations = wkDataStore.getAllLocations()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+       //alle locaties tonen
     }
 }
 
-#Preview {
-    ListStadionView()
-}
