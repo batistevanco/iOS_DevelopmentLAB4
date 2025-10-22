@@ -19,6 +19,7 @@ struct ContentView: View {
                         )
                     }
                     .buttonStyle(.borderedProminent)
+                    .padding(.bottom, 40)
                 }
             }
             .navigationTitle("Welcome")
