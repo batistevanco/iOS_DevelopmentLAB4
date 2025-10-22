@@ -1,30 +1,27 @@
-//
-//  ContentView.swift
-//  WK_App
-//
-//  Created by Batiste Vancoillie on 14/10/2025.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    @State var selectedTeam: String?
+    @State private var selectedTeam: String?
+    @State private var selectedLocation: String?
+    @State private var selectedWKResult: WKResult?
+
     var body: some View {
-       /* NavigationSplitView{
-            WelcomeView(selectedTeam: $selectedTeam)
-        } detail: {
-            if let selectedTeam = selectedTeam{
-                ScoreListView(selectedTeam: selectedTeam)
-            } else{
-                Text("Please select a name")
+        NavigationStack {
+            VStack(spacing: 16) {
+                WelcomeView(selectedTeam: $selectedTeam)
+
+                if selectedTeam != nil {
+                    NavigationLink("Next") {
+                        ResultsView(
+                            selectedLocation: $selectedLocation,
+                            selectedWKResult: $selectedWKResult,
+                            selectedTeam: selectedTeam
+                        )
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
             }
-        }*/
-        NavigationStack{
-            WelcomeView(selectedTeam: $selectedTeam)
+            .navigationTitle("Welcome")
         }
     }
-}
-
-#Preview {
-    ContentView()
 }

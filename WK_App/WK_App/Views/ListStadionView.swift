@@ -10,11 +10,19 @@ import SwiftUI
 struct ListStadionView: View {
     
     @Environment(WKDataStore.self) var wkDataStore
-    
-    let locations = wkDataStore.getAllLocations()
+    @Binding var selectedLocation: String?
     
     var body: some View {
-       //alle locaties tonen
-    }
+            let locations = wkDataStore.getAllLocations()
+            List(locations, id: \.self, selection: Binding(
+                get: { selectedLocation },
+                set: { newValue in
+                    // bij wissel stadion reset detailselectie in parent (via ResultsView/ContentView)
+                    selectedLocation = newValue
+                }
+            )) { loc in
+                Text(loc)
+            }
+        }
 }
 

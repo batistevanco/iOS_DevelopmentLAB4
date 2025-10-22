@@ -13,25 +13,16 @@ struct WelcomeView: View {
     @Binding var selectedTeam: String?
 
     var body: some View {
-        
-        Text("WK QATAR 2020").font(Font.largeTitle)
-        
-        Text("Select your favorite team...")
-        
-        let teams = wkDataStore.getAllTeams()
+        VStack(alignment: .leading, spacing: 12) {
+            Text("WK QATAR 2022").font(.largeTitle)
+            Text("Select your favorite team...")
 
-        List(teams, id: \.self, selection: $selectedTeam) { team in
-            Text(team)
-        }
-        
-        if let selectedTeam = selectedTeam{
-            Button("Next"){
-                ResultsView()
+            let teams = wkDataStore.getAllTeams()
+            List(teams, id: \.self, selection: $selectedTeam) { team in
+                Text(team)
             }
-
         }
-
-        
+        .padding(.horizontal)
     }
 }
 
